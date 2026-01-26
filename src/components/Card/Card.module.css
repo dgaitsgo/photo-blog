@@ -1,0 +1,42 @@
+.blog-item {
+    align-items: flex-start;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+    margin-bottom: none;
+    /* opacity: 0;
+    transform: translatey(-15px);
+    transition: opacity 1s ease, transform 1s ease; */
+}
+
+@media screen and (min-width: 768px) {
+    .blog-item {
+        flex-direction: row;
+        margin-bottom: 100px;
+    }
+}
+
+.card-text {
+    flex: 1;
+}
+
+.img-wrapper {
+    flex: 1;
+    max-width: 720px;
+}
+
+.img-wrapper img {
+    max-height: 80vh;
+    object-fit: contain;
+}
+
+.cover-image {
+    /* height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    border-radius: 8px;
+    overflow: hidden; */
+}
