@@ -1,14 +1,14 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import markdownToHtml from 'src/lib/markdownToHtml'
-import { getAllPosts, getPostBySlug } from 'src/api'
+import { findPostBySlug, getAllPosts, getAllPostsChronological, getPostBySlug } from 'src/api'
 import Gallery from 'src/components/Gallery'
 import Layout from 'src/components/Layout'
 import PrevNextPagination from 'src/components/PrevNextPagination'
 
 export default async function Post(props: Params) {
   const params = await props.params
-  const post = getPostBySlug(params.slug)
+  const post = findPostBySlug(params.slug)
 
   if (!post) {
     return notFound()
@@ -29,6 +29,7 @@ export default async function Post(props: Params) {
   const dateString = new Date(post.date).toLocaleDateString('en-US', {
     month: 'long',
     day: 'numeric',
+    year: 'numeric',
   })
 
   return (
@@ -40,7 +41,7 @@ export default async function Post(props: Params) {
           dangerouslySetInnerHTML={{ __html: content }}
         />
       </div>
-     <PrevNextPagination post={post} />
+      <PrevNextPagination post={post} />
     </Layout>
   )
 }
@@ -52,7 +53,7 @@ type Params = {
 }
 export async function generateStaticParams() {
 
-  const posts = getAllPosts()
+  const posts = getAllPostsChronological()
 
   return posts.map((post: any, i) => ({
     slug: post.slug,

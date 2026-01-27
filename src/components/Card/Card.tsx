@@ -1,12 +1,12 @@
 'use client'
 
-import Image from "next/image";
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import styles from './Card.module.css'
 
-function Card({ title, date, excerpt, location, tags, cardCover, slug }:
+function Card({ title, date, excerpt, location, tags, cardCover, articlePath }:
     {
-        title: string; date: string; excerpt: string, location: string, tags: string[], cardCover: string, slug: string
+        title: string; date: string; excerpt: string, location: string, tags: string[], cardCover: string, articlePath : string
     }) {
 
     const [isVisible, setIsVisible] = useState(false);
@@ -41,33 +41,33 @@ function Card({ title, date, excerpt, location, tags, cardCover, slug }:
         >
             <div className={styles['blog-item']}>
                 <div className={styles['img-wrapper']}>
-                    <a href={`post/${slug}`}>
+                    <a href={articlePath}>
                         <Image className={styles['img-yo']} width={1080} height={500} src={cardCover} alt={'cover image'} />
                     </a>
                 </div>
                 <div className={styles['card-text']}>
-                    <div className="text-sm text-body mb-1">
+                    <div className='text-sm text-body mb-1'>
                         {dateString}
                     </div>
-                    <div className="font-bold text-xl mb-2">
+                    <div className='font-bold text-xl mb-2'>
                         {title}
                     </div>
-                    <div className="text-gray-700 text-base mb-4">
+                    <div className='text-gray-700 text-base mb-4'>
                         {excerpt}
                     </div>
                     {location &&
-                        <div className="mb-2">
+                        <div className='mb-2'>
                             {location}
                         </div>
                     }
-                    <a href={`post/${slug}`} className="text-blue-500 hover:text-blue-700 mb-4 inline-block">
+                    <a href={articlePath} className='text-blue-500 hover:text-blue-700 mb-4 inline-block'>
                         more
                     </a>
                     <div >
                         {tags.map((tag, i) =>
                             <span
                                 key={i}
-                                className="inline-block bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                                className='inline-block bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'>
                                 #{tag}
                             </span>
                         )}
