@@ -1,4 +1,3 @@
-// import { Post } from '@/interfaces/post'
 import { cache } from 'react';
 
 import seasons from './constants/seasons'
@@ -41,25 +40,6 @@ export function getPostsByYearAndSeason(year: string, seasonLabel: string) {
   return fs.readdirSync(`${postsDirectory}/${year}/${seasonLabel}`).map((slug) => {
     return `${year}/${seasonLabel}/${slug}`
   }).map((slug) => getPostBySlug(slug)).sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
-}
-
-export function getPostSlugs() {
-  return fs.readdirSync(postsDirectory)
-}
-
-export function organizeBySeason(posts: any[]) {
-  const organizedPosts: any[] = []
-  for (const season of seasons) {
-    const seasonPosts = posts.filter((post) => {
-      const postDate = post.date
-      return postDate >= season.after && postDate < season.before
-    })
-    organizedPosts.push({
-      season,
-      posts: seasonPosts
-    })
-  }
-  return organizedPosts
 }
 
 export function findPostBySlug(slug: string): any {
@@ -130,57 +110,3 @@ export function getPostBySlug(slug: string) {
 }
 
 export type { SeasonType }
-
-export function getPostsBySeason(season: SeasonType | undefined) {
-
-  if (!season) {
-    return []
-  }
-
-  const slugs = getPostSlugs()
-
-  const posts = slugs.filter((slug) => {
-    const slugDate = slug.split('.')[0]
-    return slugDate >= season.after && slugDate < season.before
-  })
-  return posts.map((slug) => getPostBySlug(slug)).sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
-}
-
-// export function getCurrentSeason(): SeasonType | undefined {
-
-// const now = new Date()
-// const today = now.toISOString().split('T')[0]
-
-// for (const season of seasons) {
-//   if (today >= season.after && today < season.before) {
-//     return season
-//   }
-// }
-// return undefined
-// }
-
-// export function getSeasonURL(season: SeasonType) {
-//   const now = new Date()
-//   const today = now.toISOString().split('T')[0]
-//   if (season.label.includes('Winter')) {
-//     const year = now.getFullYear()
-//     console.log('year:', year, 'today:', today)
-//     if (today < `${year}-01-01`) {
-//       console.log('prev year - 1:', year - 1) 
-//       return `${year - 1}/${season.label.split(' ')[0].toLowerCase()}`
-//     } else {
-//       return `${year}/${season.label.split(' ')[0].toLowerCase()}`
-//     }
-//   }
-//   else {
-//     return `${season.label.split(' ')[1]}/${season.label.split(' ')[0].toLowerCase()}`
-//   }
-// }
-
-export function getAllPosts(): any[] {
-  const slugs = getPostSlugs()
-  const posts = slugs
-    .map((slug) => getPostBySlug(slug))
-    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
-  return posts
-}

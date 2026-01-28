@@ -1,7 +1,6 @@
-import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import markdownToHtml from 'src/lib/markdownToHtml'
-import { findPostBySlug, getAllPosts, getAllPostsChronological, getPostBySlug } from 'src/api'
+import { findPostBySlug, getAllPostsChronological } from 'src/api'
 import Gallery from 'src/components/Gallery'
 import Layout from 'src/components/Layout'
 import PrevNextPagination from 'src/components/PrevNextPagination'
