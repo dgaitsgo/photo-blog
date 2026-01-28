@@ -6,7 +6,7 @@ import styles from './Card.module.css'
 
 function Card({ title, date, excerpt, location, tags, cardCover, articlePath }:
     {
-        title: string; date: string; excerpt: string, location: string, tags: string[], cardCover: string, articlePath : string
+        title: string; date: string; excerpt: string, location: string, tags: string[], cardCover: string, articlePath: string | undefined
     }) {
 
     const [isVisible, setIsVisible] = useState(false);
@@ -41,9 +41,13 @@ function Card({ title, date, excerpt, location, tags, cardCover, articlePath }:
         >
             <div className={styles['blog-item']}>
                 <div className={styles['img-wrapper']}>
-                    <a href={articlePath}>
+                    {articlePath ? (
+                        <a href={articlePath}>
+                            <Image className={styles['img-yo']} width={1080} height={500} src={cardCover} alt={'cover image'} />
+                        </a>
+                    ) : (
                         <Image className={styles['img-yo']} width={1080} height={500} src={cardCover} alt={'cover image'} />
-                    </a>
+                    )}
                 </div>
                 <div className={styles['card-text']}>
                     <div className='text-sm text-body mb-1'>
@@ -60,9 +64,11 @@ function Card({ title, date, excerpt, location, tags, cardCover, articlePath }:
                             {location}
                         </div>
                     }
-                    <a href={articlePath} className='text-blue-500 hover:text-blue-700 mb-4 inline-block'>
+                    {articlePath ? (
+                        <a href={articlePath} className='text-blue-500 hover:text-blue-700 mb-4 inline-block'>
                         more
-                    </a>
+                        </a>
+                    ) : null}
                     <div >
                         {tags.map((tag, i) =>
                             <span

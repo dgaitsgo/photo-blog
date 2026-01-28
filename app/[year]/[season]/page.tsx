@@ -26,8 +26,8 @@ export default async function Home({ params }: { params: { year: string, season:
     return (
         <Layout>
             <SeasonPagination year={year} season={season} />
-            {posts.map(({ title, date, excerpt, location, tags, cardCover, slug }, i) =>
-                <Card key={i} title={title} date={date} excerpt={excerpt} location={location} tags={tags} cardCover={cardCover} articlePath={`/post/${slug.split('/')[2]}`} />)
+            {posts.map(({ title, date, excerpt, location, tags, cardCover, slug, content, galleries }, i) =>
+                <Card key={i} title={title} date={date} excerpt={excerpt} location={location} tags={tags} cardCover={cardCover} articlePath={content || galleries?.length ? `/post/${slug.split('/')[2]}` : undefined} />)
             }
         </Layout>
     )

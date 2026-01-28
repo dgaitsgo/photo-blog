@@ -75,6 +75,23 @@ export function getAdjacentPosts(slug: string) {
   };
 }
 
+export function findSeasonYearPathBySlug(slug: string) {
+  const years = fs.readdirSync(postsDirectory);
+
+  for (const year of years) {
+    const seasons = fs.readdirSync(path.join(postsDirectory, year));
+
+    for (const season of seasons) {
+      const targetPath = path.join(postsDirectory, year, season, `${slug}.md`)
+      if (fs.existsSync(targetPath)) {
+        return path.join(year, season, slug);
+      }
+    }
+  }
+
+  throw new Error(`Post not found: ${slug}`);
+}
+
 export function getPostBySlug(slug: string) {
   const realSlug = slug.replace(/\.md$/, '')
   const fullPath = join(postsDirectory, `${realSlug}.md`)
