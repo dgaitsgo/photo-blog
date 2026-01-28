@@ -36,7 +36,14 @@ export default async function Post(props: Params) {
     <Layout>
       <div className='article-content'>
         <p className='text-base text-gray-500 dark:text-gray-400 article-date'>{dateString}</p>
+        {post.location &&
+          <p className='mb-4'>
+            {post.location}
+          </p>
+        }
         <h3 className='mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white align-center self-center'>{post.title}</h3>
+
+
         {/* <div className="prose max-w-12xl mx-auto width-full article-content"
           dangerouslySetInnerHTML={{ __html: content }}
         /> */}
